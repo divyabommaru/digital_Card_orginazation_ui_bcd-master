@@ -178,7 +178,7 @@ import {
 
 const menu = [
   { name: "Dashboard", path: "/", icon: LayoutDashboard },
-  { name: "Organizations", path: "/organizations", icon: Building2 },
+  // { name: "Organizations", path: "/organizations", icon: Building2 },
   { name: "My Staff", path: "/staff-cards", icon: Users },
   { name: "Transactions", path: "/transactions", icon: ReceiptIndianRupee },
   { name: "Settings", path: "/settings", icon: Settings },

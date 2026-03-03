@@ -195,44 +195,235 @@
 // }
 
 
+// // src/components/StaffCard.jsx
+// import { useNavigate } from "react-router-dom";
+
+// export default function StaffCard({ employee }) {
+//   const navigate = useNavigate();
+
+//   return (
+//     <div className="bg-[hsl(var(--card-bg))] rounded-xl p-4 border border-[hsl(var(--border))] shadow-sm hover:shadow-md transition-all duration-200">
+//       <div className="flex items-center gap-4">
+//         <img
+//           src={employee.avatar}
+//           alt="avatar"
+//           className="w-12 h-12 rounded-full object-cover border border-[hsl(var(--border))] shadow-sm"
+//         />
+
+//         <div className="flex-1 min-w-0">
+//           <h4 className="font-semibold text-sm text-[hsl(var(--text-primary))] truncate">
+//             {employee.name}
+//           </h4>
+//           <p className="text-xs text-[hsl(var(--text-muted))] truncate">
+//             {employee.role}
+//           </p>
+//           <p className="text-xs text-[hsl(var(--text-muted))/80] truncate">
+//             {employee.location || "No location"}
+//           </p>
+//         </div>
+
+//         <span className="text-xs bg-[hsl(var(--accent)/0.15)] text-[hsl(var(--accent))] px-2.5 py-1 rounded-full font-medium whitespace-nowrap">
+//           Assigned
+//         </span>
+//       </div>
+
+//       {/* ACTION ROW */}
+//       <div className="mt-4 flex items-center justify-between flex-wrap gap-3">
+//         <div className="flex gap-2 flex-wrap">
+//           {/* VIEW */}
+//           <button
+//             className="text-xs px-4 py-2 rounded-lg bg-[hsl(var(--bg-secondary))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--accent)/0.1)] transition-colors border border-[hsl(var(--border))]"
+//             onClick={() =>
+//               navigate(`/${employee.organization_slug}/${employee.user_slug}`)
+//             }
+//           >
+//             View
+//           </button>
+
+//           {/* EDIT */}
+//           <button
+//             className="text-xs px-4 py-2 rounded-lg bg-[hsl(var(--accent))] text-white hover:bg-[hsl(var(--accent-dark))] transition-colors shadow-sm"
+//             onClick={() => navigate(`/edit-staff-cards/${employee.user_slug}`)}
+//           >
+//             Edit
+//           </button>
+
+//           {/* EXPIRY */}
+//           <span className="text-[10px] bg-[hsl(var(--accent)/0.1)] text-[hsl(var(--accent))] px-2.5 py-1 rounded-full font-medium flex items-center gap-1 whitespace-nowrap">
+//             <span className="text-xs">⏳</span>
+//             Valid till {employee.exp}
+//           </span>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+// // src/components/StaffCard.jsx
+// import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { QrCode, Download, X } from "lucide-react";
+
+// export default function StaffCard({ employee }) {
+//   const navigate = useNavigate();
+
+//   // QR Modal State
+//   const [showQRModal, setShowQRModal] = useState(false);
+
+//   // Static QR image (place your file in public/assets/)
+//   const staticQRImage = "/assets/qr-code-static.png"; // ← your QR file
+
+//   return (
+//     <div className="bg-[hsl(var(--card-bg))] rounded-xl p-5 shadow-sm hover:shadow-md transition border border-[hsl(var(--border))]">
+//       <div className="flex items-center gap-4">
+//         <img
+//           src={employee.avatar || "/assets/avatar-placeholder.png"}
+//           alt="avatar"
+//           className="w-12 h-12 rounded-full object-cover border border-[hsl(var(--border))]"
+//         />
+
+//         <div className="flex-1 min-w-0">
+//           <h4 className="font-semibold text-sm text-[hsl(var(--text-primary))] truncate">
+//             {employee.name}
+//           </h4>
+//           <p className="text-xs text-[hsl(var(--text-muted))]">{employee.role}</p>
+//           <p className="text-xs text-[hsl(var(--text-muted))/80] truncate">
+//             {employee.location || "No location"}
+//           </p>
+//         </div>
+
+//         <span className="text-xs bg-emerald-900/40 text-emerald-400 px-3 py-1 rounded-full border border-emerald-700/30 font-medium whitespace-nowrap">
+//           Assigned
+//         </span>
+//       </div>
+
+//       {/* ACTION ROW */}
+//       <div className="mt-5 flex items-center justify-between flex-wrap gap-4">
+//         <div className="flex gap-2.5 flex-wrap">
+//           {/* VIEW */}
+//           <button
+//             className="text-xs px-5 py-2.5 rounded-lg bg-[hsl(var(--accent))] text-white hover:bg-[hsl(var(--accent-dark))] transition shadow-sm font-medium"
+//             onClick={() =>
+//               navigate(`/${employee.organization_slug}/${employee.user_slug}`)
+//             }
+//           >
+//             View
+//           </button>
+
+//           {/* EDIT */}
+//           <button
+//             className="text-xs px-5 py-2.5 rounded-lg bg-transparent border-2 border-[hsl(var(--accent))] text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent)/0.1)] transition font-medium"
+//             onClick={() => navigate(`/edit-staff-cards/${employee.user_slug}`)}
+//           >
+//             Edit
+//           </button>
+
+//           {/* EXPIRY */}
+//           <span className="text-xs bg-amber-900/40 text-amber-400 px-3 py-1.5 rounded-full font-medium flex items-center gap-1.5 whitespace-nowrap">
+//             <span className="text-base">⏳</span>
+//             Valid till {employee.exp}
+//           </span>
+//         </div>
+
+//         {/* QR CODE BUTTON – MEDIUM SIZE, ORANGE CIRCLE */}
+//         <button
+//           onClick={() => setShowQRModal(true)}
+//           className="w-10 h-10 rounded-full bg-[hsl(var(--accent))] text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-md"
+//           title="Show QR Code"
+//         >
+//           <QrCode size={20} />
+//         </button>
+//       </div>
+
+//       {/* QR MODAL */}
+//       {showQRModal && (
+//         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] p-4">
+//           <div className="bg-[hsl(var(--card-bg))] rounded-3xl shadow-2xl max-w-sm w-full p-6 border border-[hsl(var(--border))]">
+//             <div className="flex justify-between items-center mb-5">
+//               <h3 className="text-lg font-bold text-[hsl(var(--text-primary))]">Scan QR Code</h3>
+//               <button
+//                 onClick={() => setShowQRModal(false)}
+//                 className="text-[hsl(var(--text-muted))] hover:text-[hsl(var(--text-primary))]"
+//               >
+//                 <X size={24} />
+//               </button>
+//             </div>
+
+//             <div className="flex flex-col items-center">
+//               <div className="bg-white p-4 rounded-2xl shadow-inner border border-gray-200">
+//                 <img
+//                   src={staticQRImage}
+//                   alt="QR Code for Digital Card"
+//                   className="w-64 h-64 rounded-xl"
+//                 />
+//               </div>
+
+//               <p className="text-center text-sm text-[hsl(var(--text-muted))] mt-5 max-w-[260px]">
+//                 Scan this QR code with your phone to open the digital card instantly
+//               </p>
+
+//               <button
+//                 onClick={() => {
+//                   alert("Downloading as PDF... (implement real PDF generation later using jsPDF + html2canvas)");
+//                 }}
+//                 className="mt-6 flex items-center gap-2 bg-[hsl(var(--accent))] text-white px-8 py-3 rounded-xl font-medium hover:bg-[hsl(var(--accent-dark))] transition-all"
+//               >
+//                 <Download size={18} />
+//                 Download as PDF
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
 // src/components/StaffCard.jsx
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { QrCode, Download, X } from "lucide-react";
 
 export default function StaffCard({ employee }) {
   const navigate = useNavigate();
 
+  // QR Modal State
+  const [showQRModal, setShowQRModal] = useState(false);
+
+  // Static QR image (place your file in public/assets/)
+  const staticQRImage = "/assets/qr-code-static.png"; // ← your QR file
+
   return (
-    <div className="bg-[hsl(var(--card-bg))] rounded-xl p-4 border border-[hsl(var(--border))] shadow-sm hover:shadow-md transition-all duration-200">
+    <div className="bg-[hsl(var(--card-bg))] rounded-xl p-5 shadow-sm hover:shadow-md transition border border-[hsl(var(--border))]">
       <div className="flex items-center gap-4">
         <img
-          src={employee.avatar}
+          src={employee.avatar || "/assets/avatar-placeholder.png"}
           alt="avatar"
-          className="w-12 h-12 rounded-full object-cover border border-[hsl(var(--border))] shadow-sm"
+          className="w-12 h-12 rounded-full object-cover border border-[hsl(var(--border))]"
         />
 
         <div className="flex-1 min-w-0">
           <h4 className="font-semibold text-sm text-[hsl(var(--text-primary))] truncate">
             {employee.name}
           </h4>
-          <p className="text-xs text-[hsl(var(--text-muted))] truncate">
-            {employee.role}
-          </p>
+          <p className="text-xs text-[hsl(var(--text-muted))]">{employee.role}</p>
           <p className="text-xs text-[hsl(var(--text-muted))/80] truncate">
             {employee.location || "No location"}
           </p>
         </div>
 
-        <span className="text-xs bg-[hsl(var(--accent)/0.15)] text-[hsl(var(--accent))] px-2.5 py-1 rounded-full font-medium whitespace-nowrap">
+        <span className="text-xs bg-emerald-900/40 text-emerald-400 px-3 py-1 rounded-full border border-emerald-700/30 font-medium whitespace-nowrap">
           Assigned
         </span>
       </div>
 
-      {/* ACTION ROW */}
-      <div className="mt-4 flex items-center justify-between flex-wrap gap-3">
-        <div className="flex gap-2 flex-wrap">
+      {/* ACTION ROW – QR now straight next to Expiry */}
+      <div className="mt-5 flex items-center justify-between flex-wrap gap-4">
+        <div className="flex gap-2.5 flex-wrap items-center">
           {/* VIEW */}
           <button
-            className="text-xs px-4 py-2 rounded-lg bg-[hsl(var(--bg-secondary))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--accent)/0.1)] transition-colors border border-[hsl(var(--border))]"
+            className="text-xs px-5 py-2.5 rounded-lg bg-[hsl(var(--accent))] text-white hover:bg-[hsl(var(--accent-dark))] transition shadow-sm font-medium"
             onClick={() =>
               navigate(`/${employee.organization_slug}/${employee.user_slug}`)
             }
@@ -242,89 +433,71 @@ export default function StaffCard({ employee }) {
 
           {/* EDIT */}
           <button
-            className="text-xs px-4 py-2 rounded-lg bg-[hsl(var(--accent))] text-white hover:bg-[hsl(var(--accent-dark))] transition-colors shadow-sm"
+            className="text-xs px-5 py-2.5 rounded-lg bg-transparent border-2 border-[hsl(var(--accent))] text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent)/0.1)] transition font-medium"
             onClick={() => navigate(`/edit-staff-cards/${employee.user_slug}`)}
           >
             Edit
           </button>
 
-          {/* EXPIRY */}
-          <span className="text-[10px] bg-[hsl(var(--accent)/0.1)] text-[hsl(var(--accent))] px-2.5 py-1 rounded-full font-medium flex items-center gap-1 whitespace-nowrap">
-            <span className="text-xs">⏳</span>
-            Valid till {employee.exp}
-          </span>
+          {/* EXPIRY + QR CODE BUTTON – placed together */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs bg-amber-900/40 text-amber-400 px-3 py-1.5 rounded-full font-medium flex items-center gap-1.5 whitespace-nowrap">
+              <span className="text-base">⏳</span>
+              Valid till {employee.exp}
+            </span>
+
+            {/* QR CODE BUTTON – medium size, orange circle, right next to expiry */}
+            <button
+              onClick={() => setShowQRModal(true)}
+              className="w-10 h-10 rounded-full bg-[hsl(var(--accent))] text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-md"
+              title="Show QR Code"
+            >
+              <QrCode size={20} />
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* QR MODAL – unchanged */}
+      {showQRModal && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] p-4">
+          <div className="bg-[hsl(var(--card-bg))] rounded-3xl shadow-2xl max-w-sm w-full p-6 border border-[hsl(var(--border))]">
+            <div className="flex justify-between items-center mb-5">
+              <h3 className="text-lg font-bold text-[hsl(var(--text-primary))]">Scan QR Code</h3>
+              <button
+                onClick={() => setShowQRModal(false)}
+                className="text-[hsl(var(--text-muted))] hover:text-[hsl(var(--text-primary))]"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <div className="bg-white p-4 rounded-2xl shadow-inner border border-gray-200">
+                <img
+                  src={staticQRImage}
+                  alt="QR Code for Digital Card"
+                  className="w-64 h-64 rounded-xl"
+                />
+              </div>
+
+              <p className="text-center text-sm text-[hsl(var(--text-muted))] mt-5 max-w-[260px]">
+                Scan this QR code with your phone to open the digital card instantly
+              </p>
+
+              <button
+                onClick={() => {
+                  alert("Downloading as PDF... (implement real PDF generation later using jsPDF + html2canvas)");
+                }}
+                className="mt-6 flex items-center gap-2 bg-[hsl(var(--accent))] text-white px-8 py-3 rounded-xl font-medium hover:bg-[hsl(var(--accent-dark))] transition-all"
+              >
+                <Download size={18} />
+                Download as PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-// // src/components/StaffCard.jsx
-// import { useNavigate } from "react-router-dom";
-
-// export default function StaffCard({ employee }) {
-//   const navigate = useNavigate();
-
-//   return (
-//     <div className="bg-[hsl(var(--card-bg))] rounded-2xl p-5 border border-[hsl(var(--border))] shadow-sm hover:shadow-lg transition-all duration-200">
-//       <div className="flex items-start gap-4">
-//         {/* Avatar with green dot */}
-//         <div className="relative">
-//           <img
-//             src={employee.avatar}
-//             alt="avatar"
-//             className="w-14 h-14 rounded-full object-cover border-2 border-[hsl(var(--border))] shadow-sm"
-//           />
-//           <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-[hsl(var(--card-bg))] shadow-sm"></span>
-//         </div>
-
-//         <div className="flex-1 min-w-0">
-//           <h4 className="font-bold text-base text-[hsl(var(--text-primary))] truncate">
-//             {employee.name}
-//           </h4>
-//           <p className="text-sm text-[hsl(var(--text-muted))] truncate">
-//             {employee.role}
-//           </p>
-//           <div className="flex items-center gap-2 mt-1 text-xs text-[hsl(var(--text-muted))]">
-//             <span className="text-green-500 font-medium">●</span>
-//             {employee.location || "No location"}
-//           </div>
-//         </div>
-
-//         {/* Assigned badge - orange pill */}
-//         <span className="text-xs bg-[hsl(var(--accent)/0.15)] text-[hsl(var(--accent))] px-3 py-1 rounded-full font-medium whitespace-nowrap">
-//           Assigned
-//         </span>
-//       </div>
-
-//       {/* ACTION ROW - orange buttons + expiry pill */}
-//       <div className="mt-5 flex items-center justify-between flex-wrap gap-4">
-//         <div className="flex gap-3 flex-wrap">
-//           {/* VIEW - orange button */}
-//           <button
-//             className="text-sm px-5 py-2 rounded-lg bg-[hsl(var(--accent))] text-white hover:bg-[hsl(var(--accent-dark))] transition-colors shadow-sm font-medium"
-//             onClick={() =>
-//               navigate(`/${employee.organization_slug}/${employee.user_slug}`)
-//             }
-//           >
-//             View
-//           </button>
-
-//           {/* EDIT - white/orange border button */}
-//           <button
-//             className="text-sm px-5 py-2 rounded-lg bg-transparent text-[hsl(var(--accent))] border-2 border-[hsl(var(--accent))] hover:bg-[hsl(var(--accent)/0.1)] transition-colors font-medium"
-//             onClick={() => navigate(`/edit-staff-cards/${employee.user_slug}`)}
-//           >
-//             Edit
-//           </button>
-
-//           {/* EXPIRY - orange pill */}
-//           <span className="text-xs bg-[hsl(var(--accent)/0.15)] text-[hsl(var(--accent))] px-3 py-1.5 rounded-full font-medium flex items-center gap-1.5 whitespace-nowrap">
-//             <span className="text-base">⏳</span>
-//             Valid till {employee.exp}
-//           </span>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
