@@ -12,6 +12,8 @@
 //     </div>
 //   );
 // }
+
+
 // src/components/Loader.jsx
 export default function Loader({ show = true, text = "Loading..." }) {
   if (!show) return null;
